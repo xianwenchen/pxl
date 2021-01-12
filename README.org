@@ -2,6 +2,7 @@
 #+author: Xianwen Chen
 
 pxl is a shell script that calls xlock at a specific interval.
+pxl stands for periodic xlock.
 
 It only takes one parameter, which is seconds.
 
