@@ -1,1 +1,17 @@
-* TODO Test <2021-01-11 Mon 13:52>
+#+title: pxl
+#+author: Xianwen Chen
+
+pxl is a shell script that calls xlock at a specific interval.
+
+It only takes one parameter, which is seconds.
+
+Below is the example, if you would like to lock your computer screen every 10 minutes.
+
+#+BEGIN_SRC sh :eval no
+pxl -t 600
+#+END_SRC
+
+The source code is written in the literate programming style.
+See [[file:DOCUMENTATION/pxl-design.org]].
+
+pxl is licensed under GPL version 2.
