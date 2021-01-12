@@ -1,1 +1,23 @@
-* TODO Test <2021-01-11 Mon 10:58>
+#+title: The Design of pxl
+#+author: Xianwen Chen
+
+pxl calls xlock periodically, at a fixed interval.
+
+It is a shell script.
+
+#+name: pxl
+#+begin_src sh :tangle ../pxl :exports codes :noweb yes
+#!/bin/sh
+while true
+do
+sleep 300
+xlock -mode blank
+done
+#+end_src
+
+../pxl needs to be executable.
+The code below is executed, when this org document is exported, which sets ../pxl to be executable.
+
+#+BEGIN_SRC sh :exports both
+chmod +x ../pxl
+#+END_SRC
