@@ -5,6 +5,8 @@ pxl calls xlock periodically, at a fixed interval.
 
 It is a shell script.
 
+xlock or xlockmore is required.
+
 pxl starts with a shebang.
 
 #+name: shebang

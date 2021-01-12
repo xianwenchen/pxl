@@ -6,7 +6,7 @@ do
         t) t=${OPTARG};;
     esac
 done
-echo "pxl locks the screen every $t seconds";
+echo "pxl locks the screen every $t seconds.";
 
 while true
 do
