@@ -1,6 +1,15 @@
 #!/bin/sh
+
+while getopts t: flag
+do
+    case "${flag}" in
+        t) t=${OPTARG};;
+    esac
+done
+echo "pxl locks the screen every $t seconds";
+
 while true
 do
-sleep 300
+sleep $t
 xlock -mode blank
 done

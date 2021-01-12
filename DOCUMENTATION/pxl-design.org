@@ -5,14 +5,52 @@ pxl calls xlock periodically, at a fixed interval.
 
 It is a shell script.
 
-#+name: pxl
-#+begin_src sh :tangle ../pxl :exports codes :noweb yes
+pxl starts with a shebang.
+
+#+name: shebang
+#+begin_src sh :exports codes :eval no
 #!/bin/sh
+#+end_src
+
+pxl has only one parameter, which is required.
+The -t parameter is measured in secods.
+This is the interval that xlock is called
+
+#+name: readparameter
+#+begin_src sh :exports codes :eval no
+while getopts t: flag
+do
+    case "${flag}" in
+        t) t=${OPTARG};;
+    esac
+done
+echo "pxl locks the screen every $t seconds";
+#+end_src
+
+pxl loops indefinitely.
+It locks the screen every t seconds.
+
+When a password is input to unlock the screen, the timing of t seconds restart.
+
+#+name: loop
+#+begin_src sh :exports codes :eval no
 while true
 do
-sleep 300
+sleep $t
 xlock -mode blank
 done
+#+end_src
+
+Put shebang, readparameter, and loop together.
+Tangle it to ../pxl.
+
+#+name: pxl
+#+begin_src sh :tangle ../pxl :exports codes :eval no :noweb yes
+<<shebang>>
+
+<<readparameter>>
+
+<<loop>>
 #+end_src
 
 ../pxl needs to be executable.

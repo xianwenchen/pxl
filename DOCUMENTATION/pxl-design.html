@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-01-12 Tue 00:07 -->
+<!-- 2021-01-12 Tue 00:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Design of pxl</title>
@@ -251,13 +251,61 @@ pxl calls xlock periodically, at a fixed interval.
 It is a shell script.
 </p>
 
+<p>
+pxl starts with a shebang.
+</p>
+
 <div class="org-src-container">
-<pre class="src src-sh" id="org2940fb3"><span style="color: #b22222;">#</span><span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">sh</span>
-<span style="color: #a020f0;">while </span><span style="color: #483d8b;">true</span>
+<pre class="src src-sh" id="org0af6076"><span style="color: #b22222;">#</span><span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">sh</span>
+</pre>
+</div>
+
+<p>
+pxl has only one parameter, which is required.
+The -t parameter is measured in secods.
+This is the interval that xlock is called
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="org4f8c4a3"><span style="color: #a020f0;">while </span><span style="color: #483d8b;">getopts</span> t: flag
 <span style="color: #a020f0;">do</span>
-sleep 300
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"${flag}"</span><span style="color: #a020f0;"> in</span>
+        t) <span style="color: #a0522d;">t</span>=${<span style="color: #a0522d;">OPTARG</span>};;
+    <span style="color: #a020f0;">esac</span>
+<span style="color: #a020f0;">done</span>
+<span style="color: #483d8b;">echo</span> <span style="color: #8b2252;">"pxl locks the screen every $t seconds"</span>;
+</pre>
+</div>
+
+<p>
+pxl loops indefinitely.
+It locks the screen every t seconds.
+</p>
+
+<p>
+When a password is input to unlock the screen, the timing of t seconds restart.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="org36b34ae"><span style="color: #a020f0;">while </span><span style="color: #483d8b;">true</span>
+<span style="color: #a020f0;">do</span>
+sleep $<span style="color: #a0522d;">t</span>
 xlock -mode blank
 <span style="color: #a020f0;">done</span>
+</pre>
+</div>
+
+<p>
+Put shebang, readparameter, and loop together.
+Tangle it to ../pxl.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="org0e81086">&lt;&lt;shebang&gt;&gt;
+
+&lt;&lt;readparameter&gt;&gt;
+
+<span style="color: #ffa54f;">&lt;&lt;loop&gt;&gt;</span>
 </pre>
 </div>
 
@@ -273,7 +321,7 @@ The code below is executed, when this org document is exported, which sets ../px
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Xianwen Chen</p>
-<p class="date">Created: 2021-01-12 Tue 00:07</p>
+<p class="date">Created: 2021-01-12 Tue 00:36</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
